@@ -14,10 +14,12 @@ app.use(userRoutes);
 app.use(productRoutes);
 app.use(orderRoutes);
 
-mongoose.connect("mongodb://localhost:27017/shopjsv2");
+require("dotenv").config();
+
+mongoose.connect(process.env.MONGODB_URI);
 
 app.all("*", (req, res) => {
   res.status(404).json({ message: "This route does not exist" });
 });
 
-app.listen(4000, () => console.log("Server started"));
+app.listen(process.env.PORT, () => console.log("Server started"));
